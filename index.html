@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TUPA UNSAAC</title>
+  <link rel="icon" href="logo.png">
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <!-- Ingreso -->
+  <section id="login" class="login">
+    <div class="login-centro">
+      <img class="login-logo" src="logo.png" alt="Escudo de la Universidad Nacional de San Antonio Abad del Cusco">
+      <div class="login-titulo">TUPA UNSAAC</div>
+      <p class="login-sub">Universidad Nacional de San Antonio Abad del Cusco</p>
+      <form id="form-login" class="login-caja">
+        <h2>Iniciar sesión</h2>
+        <p class="login-ayuda">Gestiona tus trámites del TUPA en un solo lugar.</p>
+        <label for="login-usuario">Código de alumno o DNI</label>
+        <input id="login-usuario" placeholder="Ej. 215719" autocomplete="username" required>
+        <label for="login-clave">Contraseña</label>
+        <input id="login-clave" type="password" placeholder="Contraseña" autocomplete="current-password" required>
+        <label for="login-rol">Ingresar como</label>
+        <select id="login-rol">
+          <option value="alumno">Usuario (estudiante, docente o público)</option>
+          <option value="oficina">Personal de oficina</option>
+        </select>
+        <button type="submit" class="btn grande">Ingresar</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Aplicación -->
+  <div id="app" hidden>
+    <header class="cabecera">
+      <button id="btn-menu" class="icono-btn solo-movil" aria-label="Abrir menú">☰</button>
+      <div class="marca"><img class="marca-img" src="logo.png" alt="Escudo UNSAAC"> TUPA UNSAAC</div>
+      <div class="cab-der">
+        <button id="btn-campana" class="icono-btn" aria-label="Notificaciones"><span id="ico-campana"></span><span id="campana-n" class="punto" hidden></span></button>
+        <span class="chip-usuario"><span id="avatar" class="avatar"></span><span><b id="u-nombre"></b><small id="u-rol"></small></span></span>
+        <button id="btn-salir" class="btn-sec peq">Salir</button>
+      </div>
+    </header>
+    <div class="cuerpo">
+      <aside id="lateral" class="lateral"><nav id="menu" aria-label="Menú principal"></nav></aside>
+      <main>
+        <div id="migas" class="migas"></div>
+
+        <!-- Inicio -->
+        <section id="vista-inicio" class="vista">
+          <h1 id="saludo"></h1>
+          <p class="sub">¿Qué quieres hacer hoy?</p>
+          <div class="accesos" id="accesos"></div>
+          <div class="dos-col">
+            <div class="tarjeta">
+              <h2>Mis trámites recientes</h2>
+              <div id="inicio-lista"></div>
+            </div>
+            <div class="tarjeta aviso-horario">
+              <h2>Horario de atención</h2>
+              <p>Puedes registrar trámites todos los días, las 24 horas.</p>
+              <p>Los documentos presentados se derivan en horario laborable, de lunes a viernes, de 07:15 a 18:00. Fuera de ese horario se registran el siguiente día hábil.</p>
+              <p class="peq-txt">Consultas: consultas.tramites@unsaac.edu.pe</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Consulta -->
+        <section id="vista-consulta" class="vista" hidden>
+          <h1>Consulta de procedimientos del TUPA</h1>
+          <div class="buscador"><span id="ico-buscar"></span><input id="buscar" type="search" placeholder="Busca un procedimiento: constancia, matrícula, certificado…" aria-label="Buscar procedimiento"></div>
+          <div id="chips-oficina" class="chips" aria-label="Filtrar por oficina"></div>
+          <p id="resumen-consulta" class="estado" role="status"></p>
+          <div id="lista-procedimientos" class="grilla"></div>
+        </section>
+
+        <!-- Registro: 4 pasos -->
+        <section id="vista-registro" class="vista" hidden>
+          <h1>Nuevo trámite</h1>
+          <div class="aviso-pago" id="aviso-pago"><b>Antes de empezar:</b> si tu trámite tiene costo, primero realiza el pago y ten a la mano tu <b>voucher</b> y tu <b>clave de pago</b>. Si no tiene costo, elige la categoría <b>Trámites exonerados de pago</b>.</div>
+          <ol id="pasos" class="pasos" aria-label="Pasos del trámite"></ol>
+          <form id="form-tramite" class="tarjeta formulario" novalidate>
+            <div class="datos-auto"><span>Fecha: <b id="t-fecha"></b></span><span>N.º de solicitud: <b id="t-nsol"></b></span></div>
+            <div class="paso-panel" data-paso="1">
+              <h2>Datos del interesado</h2>
+              <div class="filas">
+                <div><label for="t-tipo">Tipo de usuario</label>
+                  <select id="t-tipo"><option>Estudiante</option><option>Docente / Cesante</option><option>Administrativo</option><option>Institución pública o privada</option><option>Público en general</option></select></div>
+                <div><label for="t-doc">Código de estudiante, DNI o RUC</label>
+                  <div class="con-boton"><input id="t-doc" inputmode="numeric" placeholder="6 a 11 dígitos"><button type="button" id="btn-lupa" class="btn-sec" aria-label="Buscar mis datos">Buscar</button></div></div>
+              </div>
+              <label for="t-nombre">Nombres y apellidos</label><input id="t-nombre" placeholder="Se completa al buscar tu código" readonly>
+              <label class="check"><input id="t-manual" type="checkbox"> Soy extranjero o no aparezco: ingresaré mis datos manualmente.</label>
+              <p id="t-lupa-msg" class="ayuda" role="status"></p>
+              <div class="filas">
+                <div><label for="t-facultad">Facultad</label><select id="t-facultad"></select></div>
+                <div><label for="t-carrera">Carrera profesional</label><select id="t-carrera"></select></div>
+              </div>
+              <div class="filas">
+                <div><label for="t-tel">Teléfono móvil</label><input id="t-tel" inputmode="tel" placeholder="9 dígitos"></div>
+                <div><label for="t-dir">Dirección (opcional)</label><input id="t-dir" placeholder="Calle, número, distrito"></div>
+              </div>
+              <label for="t-correo">Correo electrónico (recomendado, recibirás avisos)</label><input id="t-correo" type="email" placeholder="nombre@correo.com">
+              <label class="check"><input id="t-auto" type="checkbox"> Autorizo que la UNSAAC me notifique en el correo consignado sobre este trámite.</label>
+            </div>
+            <div class="paso-panel" data-paso="2" hidden>
+              <h2>Datos de la petición</h2>
+              <label for="t-cat">Categoría (la misma por la que pagaste)</label><select id="t-cat"></select>
+              <fieldset class="lista-tramites"><legend>Trámites disponibles (elige uno)</legend><div id="t-lista"></div></fieldset>
+              <div id="t-info" class="info"></div>
+              <label for="t-solicito">Solicito</label><input id="t-solicito" readonly placeholder="Se completa al elegir el trámite">
+              <div class="filas">
+                <div><label for="t-tdoc">Tipo de documento</label>
+                  <select id="t-tdoc"><option>Solicitud</option><option>Carta</option><option>Oficio</option><option>Informe</option></select></div>
+                <div><label for="t-ndoc">Número de documento (opcional)</label><input id="t-ndoc" placeholder="Ej. 001-2026"></div>
+              </div>
+            </div>
+            <div class="paso-panel" data-paso="3" hidden>
+              <h2>Archivo digital</h2>
+              <p class="ayuda">Obligatorio: voucher de pago (si tiene costo) y los requisitos del trámite. PDF, DOC, DOCX, XLS, XLSX, ZIP o RAR; máximo 50 MB en total. Usa nombres cortos, sin tildes ni símbolos. <b>Si no adjuntas documentos, el trámite no será atendido.</b></p>
+              <div id="t-requisitos"></div>
+              <div class="medidor"><div class="medidor-barra"><div id="t-medidor"></div></div><span id="t-total">0 de 3 archivos · 0.0 MB de 50 MB</span></div>
+              <label for="t-aclara">Aclara tu petición e indica el destino del documento <small>(máx. 180 caracteres)</small></label>
+              <textarea id="t-aclara" rows="3" maxlength="180" placeholder="Ej. Para la Dirección de Escuela de Ingeniería Informática, para postular a prácticas"></textarea>
+              <div class="contador-car" id="t-cont">0 / 180</div>
+              <div id="t-clave-caja"><label for="t-clave">Clave de pago <small>(figura en tu voucher)</small></label><input id="t-clave" inputmode="numeric" placeholder="Ej. 49625"></div>
+              <label class="check robot"><input id="t-robot" type="checkbox"> No soy un robot</label>
+            </div>
+            <div class="paso-panel" data-paso="4" hidden>
+              <h2>Confirmar datos</h2>
+              <p class="ayuda">Revisa tu información. Si algo está mal, vuelve al paso correspondiente.</p>
+              <dl id="t-resumen" class="resumen-lista"></dl>
+            </div>
+            <p id="t-error" class="error" role="alert"></p>
+            <div class="botones">
+              <button type="button" id="btn-limpiar" class="btn-sec" hidden>Limpiar</button>
+              <button type="button" id="btn-ant" class="btn-sec">Anterior</button>
+              <button type="button" id="btn-sig" class="btn">Siguiente</button>
+              <button type="submit" id="btn-reg" class="btn" hidden>Guardar trámite</button>
+            </div>
+          </form>
+          <div id="t-exito" class="tarjeta exito" hidden></div>
+        </section>
+
+        <!-- Seguimiento -->
+        <section id="vista-seguimiento" class="vista" hidden>
+          <h1>Seguimiento de trámites</h1>
+          <form id="form-seguimiento" class="buscador">
+            <span id="ico-ruta"></span>
+            <input id="s-codigo" placeholder="Código de expediente, ej. EXP-2026-0003" aria-label="Código de expediente">
+            <button class="btn peq" type="submit">Buscar</button>
+          </form>
+          <p id="s-estado" class="estado" role="status"></p>
+          <div id="s-detalle"></div>
+          <h2>Mis trámites</h2>
+          <div id="s-mis"></div>
+        </section>
+
+        <!-- Notificaciones -->
+        <section id="vista-notificaciones" class="vista" hidden>
+          <div class="cab-seccion"><h1>Notificaciones</h1><button id="btn-leer" class="btn-sec peq">Marcar todas como leídas</button></div>
+          <ul id="lista-notif" class="notifs"></ul>
+        </section>
+
+        <!-- Bandeja de oficina -->
+        <section id="vista-panel" class="vista" hidden>
+          <h1>Bandeja de trámites</h1>
+          <div id="p-stats" class="stats"></div>
+          <div class="barra-filtros">
+            <div class="buscador corto"><span id="ico-buscar2"></span><input id="p-buscar" placeholder="Buscar por código o solicitante" aria-label="Buscar trámite"></div>
+            <div id="p-chips" class="chips"></div>
+          </div>
+          <div class="tabla-caja"><table class="tabla">
+            <thead><tr><th>Expediente</th><th>Procedimiento</th><th>Solicitante</th><th>Fecha</th><th>Estado</th><th></th></tr></thead>
+            <tbody id="p-filas"></tbody>
+          </table></div>
+        </section>
+
+        <!-- Reportes -->
+        <section id="vista-reportes" class="vista" hidden>
+          <div class="cab-seccion"><h1>Reportes y estadísticas</h1><button id="r-csv" class="btn-sec peq">Descargar CSV</button></div>
+          <div id="r-stats" class="stats"></div>
+          <div class="dos-col">
+            <div class="tarjeta"><h2>Trámites por procedimiento</h2><div id="r-barras"></div></div>
+            <div class="tarjeta"><h2>Trámites por estado</h2><div id="r-dona" class="dona-caja"></div></div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Detalle de oficina -->
+    <div id="drawer-fondo" class="drawer-fondo" hidden></div>
+    <aside id="drawer" class="drawer" hidden aria-label="Revisión del trámite"></aside>
+    <div id="visor" class="visor" hidden role="dialog" aria-modal="true" aria-labelledby="visor-titulo">
+      <div class="visor-caja"><div class="visor-cab"><h2 id="visor-titulo"></h2><button id="visor-cerrar" class="icono-cerrar" aria-label="Cerrar visor">×</button></div><div id="visor-cuerpo"></div></div>
+    </div>
+    <div id="aviso" class="toast" role="status" hidden></div>
+  </div>
+  <script src="datos.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
