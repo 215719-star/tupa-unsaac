@@ -53,7 +53,7 @@ $('form-login').addEventListener('submit', (e) => {
   e.preventDefault(); rol = $('login-rol').value;
   usuario = $('login-usuario').value.trim();
   $('login').hidden = true; $('app').hidden = false;
-  const nombre = rol === 'alumno' ? (ALUMNOS[usuario] || 'Usuario ' + usuario) : 'Oficina ' + usuario;
+  const nombre = rol === 'alumno' ? (ALUMNOS[usuario] || 'Usuario ' + usuario) : 'Dirección de Escuela';
   $('u-nombre').textContent = nombre.split(' ').slice(0, 2).join(' '); $('u-rol').textContent = rol === 'alumno' ? 'Solicitante' : 'Personal de oficina';
   $('avatar').textContent = nombre.charAt(0).toUpperCase();
   mostrar(rol === 'alumno' ? 'inicio' : 'panel');
