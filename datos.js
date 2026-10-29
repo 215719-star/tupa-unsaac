@@ -18,7 +18,7 @@ const PROCEDIMIENTOS = [
     requisitos: ['Recurso fundamentado', 'Copia de DNI'] }
 ];
 const ALUMNOS = { '210369': 'Jack Eliezer Ttito Huaman', '215719': 'Brayan Isau Choque Mamani', '215275': 'Orlando Cochama Bornas', '230253': 'Franklin Gilberto Mamani Condori',
-  '230251': 'Dominic Jair Delgado Huamputupa', '194521': 'Ana Quispe Mamani' };
+  '230251': 'Dominic Jair Delgado Huamputupa' };
 const CARRERAS = { 'Facultad de Ingeniería Eléctrica, Electrónica, Informática y Mecánica': ['Ingeniería Informática y de Sistemas', 'Ingeniería Eléctrica', 'Ingeniería Electrónica', 'Ingeniería Mecánica'],
   'Facultad de Ingeniería Civil': ['Ingeniería Civil'], 'Facultad de Arquitectura': ['Arquitectura'], 'Facultad de Ciencias Administrativas y Turismo': ['Administración', 'Turismo'],
   'Facultad de Derecho y Ciencias Sociales': ['Derecho', 'Ciencia Política'], 'Facultad de Educación y Ciencias de la Comunicación': ['Educación Primaria', 'Ciencias de la Comunicación'],
@@ -29,10 +29,10 @@ const FACULTADES = ['Facultad de Ingeniería Eléctrica, Electrónica, Informát
 const ESTADOS = ['Registrado', 'En revisión', 'Aprobado', 'Finalizado'];
 const D = (n, e) => ({ n, est: e, archivo: n.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') + '.pdf' });
 const TRAMITES = [
-  { codigo: 'EXP-2026-0001', proc: 2, nombre: 'Ana Quispe Mamani', doc: '194521', dueno: '194521', correo: 'ana.quispe@correo.com', tel: '951234567', facultad: 'Facultad de Arquitectura',
-    asunto: 'Constancia para postulación a prácticas', estado: 'En revisión', fecha: '2026-10-20', clave: '48211',
-    docs: [D('Solicitud dirigida al decano', 'Pendiente'), D('Copia de DNI', 'Validado'), D('Voucher de pago', 'Pendiente')],
-    historial: [['20/10/2026 09:12', 'Trámite registrado'], ['21/10/2026 08:40', 'En revisión en Secretaría Académica']] },
+  { codigo: 'EXP-2026-0001', proc: 1, nombre: 'Jack Eliezer Ttito Huaman', doc: '210369', dueno: '210369', correo: '210369@unsaac.edu.pe', tel: '951234567', facultad: 'Facultad de Ingeniería Eléctrica, Electrónica, Informática y Mecánica',
+    asunto: 'Constancia para prácticas preprofesionales', estado: 'En revisión', fecha: '2026-10-20', clave: '48211',
+    docs: [D('Solicitud dirigida al director', 'Pendiente'), D('Copia de DNI', 'Validado'), D('Voucher de pago', 'Pendiente')],
+    historial: [['20/10/2026 09:12', 'Trámite registrado'], ['21/10/2026 08:40', 'En revisión en Dirección de Escuela']] },
   { codigo: 'EXP-2026-0002', proc: 1, nombre: 'Brayan Isau Choque Mamani', doc: '215719', dueno: '215719', correo: '215719@unsaac.edu.pe', tel: '987654321', facultad: 'Facultad de Ingeniería Eléctrica, Electrónica, Informática y Mecánica',
     asunto: 'Constancia para beca', estado: 'Aprobado', fecha: '2026-10-21', clave: '49625',
     docs: [D('Solicitud dirigida al director', 'Validado'), D('Copia de DNI', 'Validado'), D('Voucher de pago', 'Validado')],
@@ -42,8 +42,8 @@ const TRAMITES = [
     docs: [D('Solicitud', 'Validado'), D('Copia de DNI', 'Observado'), D('Voucher de pago', 'Validado')],
     obs: { 'Copia de DNI': 'La copia no es legible. Súbela nuevamente en PDF.' },
     historial: [['22/10/2026 16:20', 'Trámite registrado'], ['23/10/2026 09:00', 'En revisión en Registro Académico'], ['23/10/2026 12:45', 'Observado: Copia de DNI']] },
-  { codigo: 'EXP-2026-0004', proc: 3, nombre: 'Carlos Mamani Flores', doc: '215900', dueno: '215900', correo: 'carlos.mamani@correo.com', tel: '964321876', facultad: 'Facultad de Ingeniería Civil',
-    asunto: 'Cambio de sección', estado: 'Registrado', fecha: '2026-10-26', clave: '51890',
+  { codigo: 'EXP-2026-0004', proc: 3, nombre: 'Orlando Cochama Bornas', doc: '215275', dueno: '215275', correo: '215275@unsaac.edu.pe', tel: '964321876', facultad: 'Facultad de Ingeniería Eléctrica, Electrónica, Informática y Mecánica',
+    asunto: 'Rectificación por cruce de horarios', estado: 'Registrado', fecha: '2026-10-26', clave: '51890',
     docs: [D('Solicitud', 'Pendiente'), D('Ficha de matrícula', 'Pendiente'), D('Voucher de pago', 'Pendiente')],
     historial: [['26/10/2026 18:02', 'Trámite registrado']] },
   { codigo: 'EXP-2026-0005', proc: 6, nombre: 'Brayan Isau Choque Mamani', doc: '215719', dueno: '215719', correo: '215719@unsaac.edu.pe', tel: '987654321', facultad: 'Facultad de Ingeniería Eléctrica, Electrónica, Informática y Mecánica',
